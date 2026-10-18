@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cyclopse Vision · Depth from a single lens</title>
+  <meta name="description" content="Cyclopse Vision builds cameras and an SDK for monocular depth estimation from defocus blur, and develops interpretability methods for video models." />
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <a class="brand" href="./">
+        <img src="assets/img/logo.svg" alt="" width="30" height="30" />
+        Cyclopse Vision
+      </a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="nav-links">
+        <a href="depth.html">Depth camera &amp; SDK</a>
+        <a href="interpretability.html">Video interpretability</a>
+        <a href="#research">Research</a>
+        <a class="btn primary" href="#contact">Get in touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow amber">Monocular depth · Video interpretability</div>
+          <h1>One lens.<br /><span class="soft">Real depth.</span><br />Models you can explain.</h1>
+          <p class="lead">
+            We build cameras and an SDK that measure depth from a single lens, using defocus blur as the
+            signal. We also build methods that show what video models are looking at, and when.
+          </p>
+          <div class="btn-row">
+            <a class="btn amber" href="depth.html">Explore depth</a>
+            <a class="btn" href="interpretability.html">Explore interpretability →</a>
+          </div>
+        </div>
+        <div class="aperture-wrap" aria-hidden="true">
+          <svg viewBox="0 0 400 400">
+            <defs>
+              <radialGradient id="iris" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#05070a" />
+                <stop offset="55%" stop-color="#0c111a" />
+                <stop offset="100%" stop-color="#1a2232" />
+              </radialGradient>
+              <radialGradient id="glint" cx="40%" cy="38%" r="30%">
+                <stop offset="0%" stop-color="#f5b13d" stop-opacity=".55" />
+                <stop offset="100%" stop-color="#f5b13d" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle cx="200" cy="200" r="190" fill="none" stroke="#222c3d" />
+            <circle cx="200" cy="200" r="160" fill="none" stroke="#222c3d" stroke-dasharray="2 6" />
+            <circle cx="200" cy="200" r="132" fill="url(#iris)" stroke="#2c384d" />
+            <g class="aperture-blades" fill="none" stroke="#f5b13d" stroke-opacity=".55" stroke-width="1.4">
+              <path d="M200 68 L268 168" /><path d="M314 134 L246 234" />
+              <path d="M314 266 L200 244" /><path d="M200 332 L132 232" />
+              <path d="M86 266 L154 166" /><path d="M86 134 L200 156" />
+              <polygon points="200,156 246,178 246,222 200,244 154,222 154,178" fill="#05070a" stroke="#f5b13d" stroke-opacity=".9" />
+            </g>
+            <circle cx="200" cy="200" r="132" fill="url(#glint)" />
+            <!-- depth rings -->
+            <g fill="none" stroke="#3dd6c6" stroke-opacity=".35">
+              <ellipse cx="200" cy="200" rx="175" ry="60" stroke-dasharray="1 5" />
+              <ellipse cx="200" cy="200" rx="60" ry="175" stroke-dasharray="1 5" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two pillars -->
+    <section class="section alt" id="what">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">What we build</div>
+          <h2>Two research lines, one company</h2>
+          <p class="lead">Both come from published research, and both are built for people who need to trust what a vision system reports.</p>
+        </div>
+        <div class="pillars">
+          <a class="pillar amber reveal" href="depth.html">
+            <div class="glow"></div>
+            <div class="num">01 — Hardware + SDK</div>
+            <h3>Depth from defocus</h3>
+            <p>A camera with optics designed for the depth cue, plus learned models and an SDK that return metric depth maps from a single lens.</p>
+            <ul>
+              <li>Purpose-built optics for strong, measurable defocus</li>
+              <li>Learned depth-from-defocus models from our research</li>
+              <li>Python SDK: capture → depth in a few lines</li>
+            </ul>
+            <span class="more">Depth camera &amp; SDK →</span>
+          </a>
+          <a class="pillar teal reveal" href="interpretability.html">
+            <div class="glow"></div>
+            <div class="num">02 — Methods + Tools</div>
+            <h3>Video interpretability</h3>
+            <p>Methods that explain video models across space <em>and</em> time: which regions, which frames and which events drove a prediction.</p>
+            <ul>
+              <li>Spatio-temporal attribution for video models</li>
+              <li>Built for high-stakes domains such as medical imaging</li>
+              <li>Tools for auditing, debugging and building trust</li>
+            </ul>
+            <span class="more">Video interpretability →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Defocus demo -->
+    <section class="section" id="demo">
+      <div class="container split">
+        <div class="reveal">
+          <div class="eyebrow amber">Interactive</div>
+          <h2>Blur is a measurement</h2>
+          <p class="lead">
+            A lens is sharp at only one distance. Everything nearer or farther blurs, and the amount of blur
+            depends on how far it is from that distance. Most cameras treat blur as a defect. We use it to measure depth.
+          </p>
+          <p style="color: var(--muted)">
+            Move the focus distance and watch the blur on each object change. A model that has learned this
+            relationship, on a camera built to make it strong, can turn one image into a depth map.
+          </p>
+          <a class="btn" href="depth.html#how">How it works →</a>
+        </div>
+        <div class="panel reveal">
+          <div class="demo-stage" id="defocus-stage" role="img" aria-label="Scene with objects at different depths that blur as the focus distance changes"></div>
+          <div class="demo-controls">
+            <label for="focus-range">Focus distance <output id="focus-out">1.2 m</output></label>
+            <input id="focus-range" type="range" min="0.5" max="7" step="0.05" value="1.2" />
+            <div class="toggle-row">
+              <button class="chip" data-mode="rgb" aria-pressed="true">Camera view</button>
+              <button class="chip" data-mode="depth" aria-pressed="false">Depth map</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interpretability teaser -->
+    <section class="section alt">
+      <div class="container split reverse">
+        <div class="reveal">
+          <div class="eyebrow teal">Video interpretability</div>
+          <h2>Explain the <span class="grad-teal">when</span>, not just the where</h2>
+          <p class="lead">
+            Image saliency maps tell you which pixels mattered. Video models also reason over time, so we
+            trace a prediction back to the regions <em>and</em> moments that caused it.
+          </p>
+          <p style="color: var(--muted)">
+            In medical video (endoscopy, ultrasound, surgical footage) a clinician needs to see the
+            evidence behind a model's output before relying on it.
+          </p>
+          <a class="btn" href="interpretability.html">Learn more →</a>
+        </div>
+        <div class="panel reveal">
+          <div class="vid-wrap show-heat" id="vid-wrap">
+            <div class="vid-frames"></div>
+            <div class="timeline" aria-hidden="true"></div>
+            <div class="timeline-label"><span>t = 0</span><span>temporal attribution</span><span>t = T</span></div>
+          </div>
+          <div class="toggle-row" style="margin-top:18px">
+            <button class="chip teal" id="heat-toggle" aria-pressed="true">Attribution overlay</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research -->
+    <section class="section" id="research">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Research</div>
+          <h2>Built on peer-reviewed work</h2>
+          <p class="lead">Our products start from our research. Papers, code and models are listed below.</p>
+        </div>
+        <!-- TODO: replace these placeholder entries with your real publications -->
+        <div class="pubs">
+          <div class="pub reveal">
+            <span class="venue">Venue ’YY</span>
+            <div>
+              <h4>Your depth-from-defocus paper title</h4>
+              <p>Authors · One-line summary of the contribution.</p>
+            </div>
+            <a href="#">Paper ↗</a>
+          </div>
+          <div class="pub reveal">
+            <span class="venue">Venue ’YY</span>
+            <div>
+              <h4>Your second depth paper or dataset</h4>
+              <p>Authors · One-line summary of the contribution.</p>
+            </div>
+            <a href="#">Code ↗</a>
+          </div>
+          <div class="pub teal reveal">
+            <span class="venue">Venue ’YY</span>
+            <div>
+              <h4>Your video interpretability paper title</h4>
+              <p>Authors · One-line summary of the contribution.</p>
+            </div>
+            <a href="#">Paper ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact" style="padding-top:0">
+      <div class="container">
+        <div class="cta reveal">
+          <div class="eyebrow">Early access</div>
+          <h2>Build with us</h2>
+          <p class="lead">
+            We're looking for early partners for the depth camera and SDK, and for collaborators who want
+            explanations of their video models, including clinical teams.
+          </p>
+          <div class="btn-row">
+            <!-- TODO: replace with your contact address -->
+            <a class="btn amber" href="mailto:hello@example.com?subject=Depth%20camera%20%2F%20SDK%20early%20access">Request depth SDK access</a>
+            <a class="btn teal" href="mailto:hello@example.com?subject=Video%20interpretability%20collaboration">Collaborate on interpretability</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span data-year></span> Cyclopse Vision</span>
+      <nav>
+        <a href="depth.html">Depth</a>
+        <a href="interpretability.html">Interpretability</a>
+        <a href="#research">Research</a>
+        <a href="https://github.com/sleekEagle">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

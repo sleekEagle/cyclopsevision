@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Video Interpretability · Cyclopse Vision</title>
+  <meta name="description" content="Interpretability methods for video models: spatio-temporal attribution for high-stakes settings such as medical imaging." />
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <a class="brand" href="./">
+        <img src="assets/img/logo.svg" alt="" width="30" height="30" />
+        Cyclopse Vision
+      </a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="nav-links">
+        <a href="depth.html">Depth camera &amp; SDK</a>
+        <a class="active" href="interpretability.html">Video interpretability</a>
+        <a href="index.html#research">Research</a>
+        <a class="btn primary" href="#collaborate">Collaborate</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero teal">
+      <div class="container">
+        <div class="eyebrow teal">02 — Video interpretability</div>
+        <h1>See what video models see, <span class="grad-teal">and when</span>.</h1>
+        <p class="lead">
+          Video models now help with diagnosis, surgery and monitoring, but their decisions are spread
+          across thousands of frames. We build methods that trace each prediction back to the regions and
+          moments that caused it.
+        </p>
+        <div class="btn-row">
+          <a class="btn teal" href="#collaborate">Collaborate with us</a>
+          <a class="btn" href="#approach">Our approach →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual -->
+    <section class="section alt" id="approach">
+      <div class="container split">
+        <div class="reveal">
+          <div class="eyebrow teal">The problem</div>
+          <h2>Image saliency isn't enough</h2>
+          <p class="lead">
+            Running an image explainer on each frame produces flickering heatmaps and says nothing about
+            <em>time</em>. A video model may depend on motion, ordering or one brief event, and an explanation
+            needs to show that.
+          </p>
+          <div class="steps teal" style="margin-top:30px">
+            <div class="step"><div><h4>Spatial attribution</h4><p>Which regions in each frame drove the prediction.</p></div></div>
+            <div class="step"><div><h4>Temporal attribution</h4><p>Which frames and segments mattered, and which the model ignored.</p></div></div>
+            <div class="step"><div><h4>Event-level concepts</h4><p>Explanations in terms people already use, such as "instrument contact" or "valve closure", rather than raw pixels.</p></div></div>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <div class="vid-wrap show-heat" id="vid-wrap">
+            <div class="vid-frames"></div>
+            <div class="timeline" aria-hidden="true"></div>
+            <div class="timeline-label"><span>t = 0</span><span>temporal attribution</span><span>t = T</span></div>
+          </div>
+          <div class="toggle-row" style="margin-top:18px">
+            <button class="chip teal" id="heat-toggle" aria-pressed="true">Attribution overlay</button>
+          </div>
+          <p style="color:var(--muted);font-size:.85rem;margin:16px 0 0">
+            Illustration: the attribution follows the moving object and peaks during the event the model relies on.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Principles -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow teal">What we focus on</div>
+          <h2>Explanations you can act on</h2>
+        </div>
+        <div class="cards">
+          <div class="card teal reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+            <h3>Faithful</h3>
+            <p>Explanations that reflect what the model actually computes, checked with quantitative faithfulness tests.</p>
+          </div>
+          <div class="card teal reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 5v14"/></svg></div>
+            <h3>Temporally coherent</h3>
+            <p>Attributions that stay consistent from frame to frame, without flicker.</p>
+          </div>
+          <div class="card teal reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/></svg></div>
+            <h3>Human-readable</h3>
+            <p>Results expressed in a domain expert's terms, so a clinician can check a model's reasoning.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Applications -->
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow teal">Applications</div>
+          <h2>Built for high-stakes video</h2>
+        </div>
+        <div class="cards four">
+          <div class="card teal reveal"><h3>Endoscopy</h3><p>Show the frames and regions behind lesion or polyp detections.</p></div>
+          <div class="card teal reveal"><h3>Ultrasound &amp; echo</h3><p>Connect predictions to specific parts of the cardiac cycle and anatomy.</p></div>
+          <div class="card teal reveal"><h3>Surgical video</h3><p>Audit phase recognition and skill-assessment models event by event.</p></div>
+          <div class="card teal reveal"><h3>Model debugging</h3><p>Find shortcuts, spurious cues and dataset bias before deployment.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How we work -->
+    <section class="section">
+      <div class="container split">
+        <div class="reveal">
+          <div class="eyebrow teal">Working with us</div>
+          <h2>From your model to clear explanations</h2>
+          <p class="lead">We work directly with research groups, clinical teams and companies deploying video models.</p>
+        </div>
+        <div class="steps teal reveal">
+          <div class="step"><div><h4>Bring your model</h4><p>Any video architecture, such as 3D CNNs, video transformers or temporal models.</p></div></div>
+          <div class="step"><div><h4>We explain it</h4><p>Spatio-temporal attributions and concept-level summaries for your task.</p></div></div>
+          <div class="step"><div><h4>Validate together</h4><p>Faithfulness checks and expert review, so the explanations can be trusted.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="collaborate" style="padding-top:0">
+      <div class="container">
+        <div class="cta reveal">
+          <div class="eyebrow teal">Collaborate</div>
+          <h2>Have a video model to explain?</h2>
+          <p class="lead">We're partnering with research groups, hospitals and companies that need to understand their video models.</p>
+          <div class="btn-row">
+            <!-- TODO: replace with your contact address -->
+            <a class="btn teal" href="mailto:hello@example.com?subject=Video%20interpretability%20collaboration">Get in touch</a>
+            <a class="btn" href="index.html#research">Read the research →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span data-year></span> Cyclopse Vision</span>
+      <nav>
+        <a href="depth.html">Depth</a>
+        <a href="interpretability.html">Interpretability</a>
+        <a href="index.html#research">Research</a>
+        <a href="https://github.com/sleekEagle">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

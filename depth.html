@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Depth Camera &amp; SDK · Cyclopse Vision</title>
+  <meta name="description" content="A camera and SDK for monocular depth estimation using defocus blur as the depth cue." />
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <a class="brand" href="./">
+        <img src="assets/img/logo.svg" alt="" width="30" height="30" />
+        Cyclopse Vision
+      </a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="nav-links">
+        <a class="active" href="depth.html">Depth camera &amp; SDK</a>
+        <a href="interpretability.html">Video interpretability</a>
+        <a href="index.html#research">Research</a>
+        <a class="btn primary" href="#access">Get early access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero amber">
+      <div class="container">
+        <div class="eyebrow amber">01 — Depth camera &amp; SDK</div>
+        <h1>Metric depth from a <span class="grad-amber">single lens</span>.</h1>
+        <p class="lead">
+          Stereo rigs need two cameras and careful calibration. Active sensors need emitters and struggle
+          outdoors. Our approach uses one camera with optics designed to make defocus blur informative, then
+          applies learned models that read depth from that blur.
+        </p>
+        <div class="btn-row">
+          <a class="btn amber" href="#access">Get early access</a>
+          <a class="btn" href="#sdk">See the SDK →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section alt" id="how">
+      <div class="container split">
+        <div class="reveal">
+          <div class="eyebrow amber">How it works</div>
+          <h2>Defocus encodes distance</h2>
+          <p class="lead">
+            Light from a point at the focus distance lands on a single spot on the sensor. Light from a
+            point at any other distance spreads into a disc called the <em>circle of confusion</em>. The
+            disc's size follows directly from the point's distance.
+          </p>
+          <div class="steps" style="margin-top:30px">
+            <div class="step"><div><h4>Optics designed for the cue</h4><p>Aperture and focus settings chosen so blur changes strongly and measurably across the working range.</p></div></div>
+            <div class="step"><div><h4>Learned defocus models</h4><p>Networks trained to separate blur caused by depth from blur that is already in the scene's texture.</p></div></div>
+            <div class="step"><div><h4>Calibrated, metric output</h4><p>The model knows the lens parameters, so it returns depth in meters, not just relative ordering.</p></div></div>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <svg class="lens-diagram" viewBox="0 0 640 300" role="img" aria-label="Thin lens diagram: a point at the focus distance converges on the sensor; a nearer point forms a blur circle">
+            <!-- optical axis -->
+            <line x1="20" y1="150" x2="630" y2="150" stroke="#222c3d" stroke-dasharray="4 4" />
+            <!-- lens -->
+            <ellipse cx="300" cy="150" rx="14" ry="80" fill="#3dd6c60d" stroke="#8d97a8" />
+            <!-- sensor -->
+            <line x1="520" y1="60" x2="520" y2="240" stroke="#8d97a8" stroke-width="3" />
+            <!-- In-focus point A -->
+            <g class="ray-a" fill="none" stroke-width="1.6">
+              <line x1="60" y1="150" x2="300" y2="72" />
+              <line x1="60" y1="150" x2="300" y2="228" />
+              <line x1="300" y1="72" x2="520" y2="150" />
+              <line x1="300" y1="228" x2="520" y2="150" />
+            </g>
+            <circle cx="60" cy="150" r="5" fill="#f5b13d" />
+            <circle cx="520" cy="150" r="4" fill="#f5b13d" />
+            <!-- Out-of-focus point B (nearer) -->
+            <g class="ray-b" fill="none" stroke-width="1.6">
+              <line x1="170" y1="150" x2="300" y2="72" />
+              <line x1="170" y1="150" x2="300" y2="228" />
+              <line x1="300" y1="72" x2="520" y2="129" />
+              <line x1="300" y1="228" x2="520" y2="171" />
+              <line x1="520" y1="129" x2="600" y2="150" stroke-dasharray="3 4" stroke-opacity=".5" />
+              <line x1="520" y1="171" x2="600" y2="150" stroke-dasharray="3 4" stroke-opacity=".5" />
+            </g>
+            <circle cx="170" cy="150" r="5" fill="#3dd6c6" />
+            <rect x="514" y="129" width="12" height="42" rx="3" fill="#3dd6c6" fill-opacity=".35" stroke="#3dd6c6" />
+            <!-- labels -->
+            <text x="40" y="180">in focus</text>
+            <text x="150" y="180">nearer</text>
+            <text x="282" y="256">lens</text>
+            <text x="500" y="262">sensor</text>
+            <text x="536" y="120" style="fill:#3dd6c6">blur circle</text>
+            <text x="536" y="136" style="fill:#3dd6c6">∝ |1/d − 1/f|</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive demo -->
+    <section class="section">
+      <div class="container split reverse">
+        <div class="reveal">
+          <div class="eyebrow amber">Try it</div>
+          <h2>From blur to a depth map</h2>
+          <p class="lead">
+            Each object below sits at a different distance. Move the focus and the blur on each one changes
+            in proportion to <code>|1/d − 1/f|</code>. Switch to the depth map to see what the model recovers.
+          </p>
+        </div>
+        <div class="panel reveal">
+          <div class="demo-stage" id="defocus-stage" role="img" aria-label="Scene with objects at different depths that blur as the focus distance changes"></div>
+          <div class="demo-controls">
+            <label for="focus-range">Focus distance <output id="focus-out">1.2 m</output></label>
+            <input id="focus-range" type="range" min="0.5" max="7" step="0.05" value="1.2" />
+            <div class="toggle-row">
+              <button class="chip" data-mode="rgb" aria-pressed="true">Camera view</button>
+              <button class="chip" data-mode="depth" aria-pressed="false">Depth map</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Camera -->
+    <section class="section alt" id="camera">
+      <div class="container split">
+        <div class="reveal">
+          <div class="eyebrow amber">The camera <span class="badge amber">In development</span></div>
+          <h2>Optics built for the cue</h2>
+          <p class="lead">
+            Ordinary cameras try to hide defocus. Ours is built so that defocus is strong, consistent and
+            calibrated, which gives the models a clean signal to work with.
+          </p>
+          <!-- TODO: replace with real spec values as the hardware is finalized -->
+          <dl class="spec-list" style="margin-top:28px">
+            <div><dt>Sensing</dt><dd>Single lens, passive</dd></div>
+            <div><dt>Output</dt><dd>RGB + metric depth</dd></div>
+            <div><dt>Optics</dt><dd>Defocus-optimized</dd></div>
+            <div><dt>Interface</dt><dd>USB · SDK</dd></div>
+          </dl>
+        </div>
+        <div class="cards reveal" style="grid-template-columns:1fr 1fr">
+          <div class="card amber">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+            <h3>One sensor</h3>
+            <p>No stereo baseline and no inter-camera calibration. The hardware is smaller and simpler.</p>
+          </div>
+          <div class="card amber">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></div>
+            <h3>Passive</h3>
+            <p>No projector or laser, so it works in sunlight and doesn't interfere with other sensors.</p>
+          </div>
+          <div class="card amber">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 6h18M3 18h12"/></svg></div>
+            <h3>Physically grounded</h3>
+            <p>Depth comes from measured optics, not just learned scene priors, so it holds up on unfamiliar scenes.</p>
+          </div>
+          <div class="card amber">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></div>
+            <h3>Edge-ready</h3>
+            <p>Designed to run on-device next to the camera, as well as on a workstation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SDK -->
+    <section class="section" id="sdk">
+      <div class="container split reverse">
+        <div class="reveal">
+          <div class="eyebrow amber">The SDK <span class="badge amber">Preview</span></div>
+          <h2>Capture to depth in a few lines</h2>
+          <p class="lead">
+            The SDK handles capture, calibration and inference. Use it with our camera, or run our pretrained
+            defocus models on images from supported cameras.
+          </p>
+          <div class="steps" style="margin-top:30px">
+            <div class="step"><div><h4>Python first</h4><p>NumPy and PyTorch friendly outputs that fit existing pipelines.</p></div></div>
+            <div class="step"><div><h4>Pretrained models</h4><p>Depth-from-defocus models from our research, ready to use.</p></div></div>
+            <div class="step"><div><h4>Standard formats</h4><p>Export depth maps, point clouds and confidence maps.</p></div></div>
+          </div>
+        </div>
+        <div class="code reveal">
+          <div class="code-head"><div class="dots"><span></span><span></span><span></span></div>depth_quickstart.py · API preview</div>
+<pre><span class="tok-k">import</span> cyclopse
+
+<span class="tok-c"># Connect to the camera (or load images from disk)</span>
+cam = cyclopse.<span class="tok-f">Camera</span>.<span class="tok-f">connect</span>()
+frame = cam.<span class="tok-f">capture</span>()
+
+<span class="tok-c"># Estimate metric depth from defocus</span>
+model = cyclopse.depth.<span class="tok-f">load</span>(<span class="tok-s">"dfd-base"</span>)
+result = model.<span class="tok-f">predict</span>(frame)
+
+result.depth        <span class="tok-c"># H×W array, meters</span>
+result.confidence   <span class="tok-c"># H×W array, 0–1</span>
+
+<span class="tok-c"># Export</span>
+result.<span class="tok-f">save</span>(<span class="tok-s">"scene_depth.exr"</span>)
+result.<span class="tok-f">to_pointcloud</span>().<span class="tok-f">save</span>(<span class="tok-s">"scene.ply"</span>)</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use cases -->
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow amber">Applications</div>
+          <h2>Where single-lens depth helps</h2>
+        </div>
+        <div class="cards four">
+          <div class="card amber reveal"><h3>Robotics</h3><p>Compact depth sensing for manipulation and navigation where there is no room for stereo.</p></div>
+          <div class="card amber reveal"><h3>Microscopy &amp; inspection</h3><p>Short-range depth, where defocus is strongest and stereo is hardest.</p></div>
+          <div class="card amber reveal"><h3>Medical imaging</h3><p>3D structure from single-port optics such as endoscopes.</p></div>
+          <div class="card amber reveal"><h3>AR &amp; mobile</h3><p>Depth from the camera that is already in the device.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="access">
+      <div class="container">
+        <div class="cta reveal">
+          <div class="eyebrow amber">Early access</div>
+          <h2>Get the SDK and camera early</h2>
+          <p class="lead">Tell us what you're building and what range and accuracy you need. We're onboarding early partners now.</p>
+          <div class="btn-row">
+            <!-- TODO: replace with your contact address -->
+            <a class="btn amber" href="mailto:hello@example.com?subject=Depth%20camera%20%2F%20SDK%20early%20access">Request access</a>
+            <a class="btn" href="index.html#research">Read the research →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span data-year></span> Cyclopse Vision</span>
+      <nav>
+        <a href="depth.html">Depth</a>
+        <a href="interpretability.html">Interpretability</a>
+        <a href="index.html#research">Research</a>
+        <a href="https://github.com/sleekEagle">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
